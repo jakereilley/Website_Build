@@ -1,0 +1,38 @@
+:root {
+  /* Purple palette */
+  --primary: #7c3aed;
+  --primary-light: #a78bfa;
+  --primary-dark: #5b21b6;
+  --primary-hover: #6d28d9;
+  --primary-glow: rgba(124, 58, 237, 0.3);
+
+  /* Light mode */
+  --bg: #faf8ff;
+  --bg-secondary: #f0ecf9;
+  --surface: #ffffff;
+  --surface-hover: #f5f3ff;
+  --text: #1a1a2e;
+  --text-muted: #6b7280;
+  --heading: #0f0a1a;
+  --border: #e5e0f0;
+  --shadow: rgba(15, 10, 26, 0.08);
+
+  /* Navbar */
+  --nav-bg: rgba(250, 248, 255, 0.85);
+  --nav-border: rgba(124, 58, 237, 0.1);
+}
+
+[data-theme="dark"] {
+  --bg: #0a0612;
+  --bg-secondary: #110d1f;
+  --surface: #1a1230;
+  --surface-hover: #231a3d;
+  --text: #e8e0f0;
+  --text-muted: #9b8fb8;
+  --heading: #f0ecf9;
+  --border: #2d2348;
+  --shadow: rgba(0, 0, 0, 0.3);
+
+  --nav-bg: rgba(10, 6, 18, 0.9);
+  --nav-border: rgba(124, 58, 237, 0.2);
+}

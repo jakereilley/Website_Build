@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(source:*)",
+      "Bash(python manage.py check:*)",
+      "Bash(npx vite build:*)"
+    ]
+  }
+}
