@@ -17,6 +17,12 @@
   z-index: 1;
 }
 
+.page-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
 /* Content layer for any page that uses a .page-bg background */
 .page-content {
   position: relative;
