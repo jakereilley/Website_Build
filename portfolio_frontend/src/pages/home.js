@@ -27,7 +27,7 @@ export default {
       <section class="page hero-section">
         <div class="hero-bg" id="hero-bg"></div>
         <div class="container hero-content">
-          <h1 class="hero-title">Creative Developer</h1>
+          <h1 class="hero-title">Aspiring Full Stack Developer</h1>
           <p class="hero-subtitle">Building immersive digital experiences with code, design, and a love for the craft.</p>
           <div class="hero-actions">
             <a href="#/projects" class="btn btn-primary">View Projects</a>

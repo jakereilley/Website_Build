@@ -17,6 +17,10 @@
  */
 
 import { get } from '../utils/api.js';
+import { HeroBackground } from '../three/HeroBackground.js';
+
+/** @type {HeroBackground|null} */
+let heroBg = null;
 
 export default {
   /**
@@ -27,26 +31,30 @@ export default {
    * @param {string} params.slug - The blog post slug from the URL
    */
   async mount(container, params) {
+    // Set the full page shell up front so the background starts immediately.
+    // Only #post-content is swapped as data loads — avoids destroying the
+    // HeroBackground canvas mid-page by replacing container.innerHTML twice.
     container.innerHTML = `
       <section class="page">
-        <div class="container">
+        <div class="page-bg" id="blog-post-bg"></div>
+        <div class="page-content container blog-post-page" id="post-content">
           <p class="loading-text">Loading post...</p>
         </div>
       </section>
     `;
+
+    heroBg = new HeroBackground(document.getElementById('blog-post-bg'));
+
+    const contentEl = document.getElementById('post-content');
 
     // Fetch the post by slug from the API
     let post = null;
     try {
       post = await get(`/blog/${params.slug}/`);
     } catch {
-      container.innerHTML = `
-        <section class="page">
-          <div class="container">
-            <h1>Post not found</h1>
-            <a href="#/blog" class="btn btn-outline">Back to Blog</a>
-          </div>
-        </section>
+      contentEl.innerHTML = `
+        <h1>Post not found</h1>
+        <a href="#/blog" class="btn btn-outline">Back to Blog</a>
       `;
       return;
     }
@@ -55,23 +63,21 @@ export default {
       .map((t) => `<span class="blog-card-tag">${t}</span>`)
       .join('');
 
-    container.innerHTML = `
-      <section class="page">
-        <div class="container blog-post-page">
-          <a href="#/blog" class="back-link">&larr; Back to Blog</a>
-          <article class="blog-post-content">
-            <h1>${post.title}</h1>
-            <div class="blog-post-meta">
-              <span>By ${post.author_name || 'Admin'}</span>
-              <span>${new Date(post.created_at).toLocaleDateString()}</span>
-              ${tags}
-            </div>
-            <div class="blog-post-body">${post.content}</div>
-          </article>
+    contentEl.innerHTML = `
+      <a href="#/blog" class="back-link">&larr; Back to Blog</a>
+      <article class="blog-post-content">
+        <h1>${post.title}</h1>
+        <div class="blog-post-meta">
+          <span>By ${post.author_name || 'Admin'}</span>
+          <span>${new Date(post.created_at).toLocaleDateString()}</span>
+          ${tags}
         </div>
-      </section>
+        <div class="blog-post-body">${post.content}</div>
+      </article>
     `;
   },
 
-  unmount() {},
+  unmount() {
+    if (heroBg) { heroBg.dispose(); heroBg = null; }
+  },
 };

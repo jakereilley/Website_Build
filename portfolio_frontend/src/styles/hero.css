@@ -17,6 +17,12 @@
   z-index: 1;
 }
 
+/* Content layer for any page that uses a .page-bg background */
+.page-content {
+  position: relative;
+  z-index: 1;
+}
+
 .hero-title {
   font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 700;

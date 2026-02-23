@@ -22,6 +22,10 @@
 
 import { get } from '../utils/api.js';
 import { navigate } from '../utils/router.js';
+import { HeroBackground } from '../three/HeroBackground.js';
+
+/** @type {HeroBackground|null} */
+let heroBg = null;
 
 export default {
   /**
@@ -31,7 +35,8 @@ export default {
   async mount(container) {
     container.innerHTML = `
       <section class="page">
-        <div class="container">
+        <div class="page-bg" id="blog-bg"></div>
+        <div class="page-content container">
           <h1>Blog</h1>
           <div class="blog-controls">
             <input type="text" class="blog-search" placeholder="Search posts..." aria-label="Search blog posts" />
@@ -43,6 +48,8 @@ export default {
         </div>
       </section>
     `;
+
+    heroBg = new HeroBackground(document.getElementById('blog-bg'));
 
     // Fetch all published blog posts
     let posts = [];
@@ -137,5 +144,7 @@ export default {
     });
   },
 
-  unmount() {},
+  unmount() {
+    if (heroBg) { heroBg.dispose(); heroBg = null; }
+  },
 };

@@ -9,6 +9,10 @@
  */
 
 import { mountContactForm } from '../components/contact-form.js';
+import { HeroBackground } from '../three/HeroBackground.js';
+
+/** @type {HeroBackground|null} */
+let heroBg = null;
 
 export default {
   /**
@@ -18,7 +22,8 @@ export default {
   mount(container) {
     container.innerHTML = `
       <section class="page">
-        <div class="container contact-page">
+        <div class="page-bg" id="contact-bg"></div>
+        <div class="page-content container contact-page">
           <h1>Get in Touch</h1>
           <p class="page-subtitle">Have a question or want to work together? Drop me a message.</p>
           <div id="contact-form-container"></div>
@@ -26,8 +31,11 @@ export default {
       </section>
     `;
 
+    heroBg = new HeroBackground(document.getElementById('contact-bg'));
     mountContactForm(document.getElementById('contact-form-container'));
   },
 
-  unmount() {},
+  unmount() {
+    if (heroBg) { heroBg.dispose(); heroBg = null; }
+  },
 };

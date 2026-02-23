@@ -16,6 +16,10 @@
  */
 
 import { get } from '../utils/api.js';
+import { HeroBackground } from '../three/HeroBackground.js';
+
+/** @type {HeroBackground|null} */
+let heroBg = null;
 
 export default {
   /**
@@ -25,7 +29,8 @@ export default {
   async mount(container) {
     container.innerHTML = `
       <section class="page">
-        <div class="container about-page">
+        <div class="page-bg" id="about-bg"></div>
+        <div class="page-content container about-page">
           <h1>About Me</h1>
           <div class="about-content">
             <div class="about-bio">
@@ -70,6 +75,8 @@ export default {
       </section>
     `;
 
+    heroBg = new HeroBackground(document.getElementById('about-bg'));
+
     // Fetch the current resume version and show a download button
     const resumeSection = document.getElementById('resume-status');
     try {
@@ -86,5 +93,7 @@ export default {
     }
   },
 
-  unmount() {},
+  unmount() {
+    if (heroBg) { heroBg.dispose(); heroBg = null; }
+  },
 };
